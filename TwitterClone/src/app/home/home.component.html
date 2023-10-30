@@ -1,0 +1,7 @@
+<div class="container">
+    <button class="btn btn-dark mb-3 float-end upload" routerLink="/create">upload</button>
+  <ul class="list-group d-flex justify-content-center">
+    <li class="list-group-item d-flex justify-content-center" *ngFor="let tweet of tweets"><app-card (likeEvent)="ngOnInit()"
+        [tweet]="tweet"></app-card></li>
+  </ul>
+</div>

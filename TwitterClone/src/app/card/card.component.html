@@ -1,0 +1,9 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <p class="card-title">{{tweet.id}}</p>
+    <hr>
+    <h5 class="card-text">{{tweet.content}}</h5>
+    <a (click)="plusLike(tweet)" class="btn p-0 me-2"><i class='bx bx-heart'></i></a>
+    <span>{{tweet.likes}} Likes</span>
+  </div>
+</div>
