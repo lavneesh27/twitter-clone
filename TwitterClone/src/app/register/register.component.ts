@@ -16,34 +16,44 @@ import { User } from '../models/user.model';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  image: Uint8Array|null=null;
   submitted: boolean = false;
-  constructor(private fb: FormBuilder, private service: MainService, private route:Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: MainService,
+    private route: Router
+  ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group(
       {
         firstName: [
           '',
           [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('[a-zA-Z].*')],
+            Validators.required,
+            Validators.minLength(2),
+            Validators.pattern('[a-zA-Z].*'),
+          ],
         ],
         lastName: [
           '',
           [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.pattern('[a-zA-Z].*')],
+            Validators.required,
+            Validators.minLength(2),
+            Validators.pattern('[a-zA-Z].*'),
+          ],
         ],
         email: ['', [Validators.required, Validators.email]],
         dob: ['', Validators.required],
         userName: ['', [Validators.required, Validators.minLength(2)]],
         password: [
-          '',[
-          Validators.required,
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$')]
+          '',
+          [
+            Validators.required,
+           
+          ],
         ],
         rPassword: ['', Validators.required],
+        image: [''],
       },
       {
         validators: this.passwordMatchValidator,
@@ -62,21 +72,48 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.submitted=true;
-   
-      let user: User = {
-        id: 0,
-        firstName: this.FirstName.value,
-        lastName: this.LastName.value,
-        email: this.Email.value,
-        password: this.Password.value,
-        dob: this.DOB.value,
-        userName: this.UserName.value
-      };
-      this.service.registerUser(user).subscribe((res: any) => {
-        console.log('Registration Successful!' + res);
-      });
-    
+    this.submitted = true;
+    console.log(this.image);
+    let user: User = {
+      id: 0,
+      firstName: this.FirstName.value,
+      lastName: this.LastName.value,
+      email: this.Email.value,
+      password: this.Password.value,
+      dob: this.DOB.value,
+      userName: this.UserName.value,
+      image: Array.from(this.image!),
+    };
+
+    this.service.registerUser(user).subscribe((res: any) => {
+      console.log('Registration Successful!' + res);
+    });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      alert('Please select only image files.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result as string;
+      this.image = this.base64ToBytes(base64);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  base64ToBytes(base64: string): Uint8Array {
+    const byteCharacters = atob(base64.split(',')[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    return new Uint8Array(byteNumbers);
   }
 
   get FirstName(): FormControl {

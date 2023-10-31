@@ -40,6 +40,10 @@ export class MainService {
     let url = this.baseUrl + 'User/GetUser/' + id;
     return this.http.get(url);
   }
+  getUsers() {
+    let url = this.baseUrl + 'User/GetUsers';
+    return this.http.get(url);
+  }
 
   upload(tweet: Tweet) {
     let url = this.baseUrl + 'Tweet/UploadTweet';

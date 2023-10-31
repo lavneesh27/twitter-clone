@@ -1,5 +1,9 @@
-btn{
+.btn{
     outline: none;
     border: none;
     text-decoration: none;
+}
+.card{
+    border-radius: 0;
+    border: 1px solid rgb(230, 230, 230);
 }

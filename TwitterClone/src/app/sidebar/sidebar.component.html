@@ -1,0 +1,31 @@
+<div class="my-4 sidebar">
+    <input type="text" class="form-control" placeholder="Search Twitter">
+
+    <div class="my-4">
+        <h5 class="my-3">Who to follow</h5>
+        <ul class="list-group" *ngFor="let people of peoples">
+            <li class="list-group-item border-0">
+                <div class="d-flex align-items-center">
+                    <img src="" alt="">
+                    <div class="d-flex flex-column">
+                        <h6 class="text-strong">{{people.firstName}} {{people.lastName}}</h6>
+                        <p class="text-muted">@{{people.userName}}</p>
+                    </div>
+                    <button class="btn btn-dark float-end">Follow</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <div class="d-flex flex-column text-center">
+            <div class="d-flex flex-wrap gap-3 text-center justify-content-center">
+                <a href="#" class="text-muted">Terms of Service</a>
+                <a href="#" class="text-muted">Privacy Policy</a>
+                <a href="#" class="text-muted">Cookie Policy</a>
+                <a href="#" class="text-muted">Accessibility</a>
+                <a href="#" class="text-muted">Ads Info</a>
+            </div>
+            <p> © 2022 Twitter, Inc.</p>
+        </div>
+    </footer>
+</div>

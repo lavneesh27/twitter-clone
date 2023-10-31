@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TwitterClone_backend_.Context;
 using TwitterClone_backend_.Models;
-using TwitterClone_backend_.Models.DataAccess;
+using TwitterClone_backend_.ViewModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,37 +12,63 @@ namespace TwitterClone_backend_.Controllers
     [ApiController]
     public class TweetController : ControllerBase
     {
-        private readonly IAppDbContext _appDbContext;
+        private readonly TwitterContext _appDbContext;
 
-        public TweetController(IAppDbContext appDbContext)
+        public TweetController(TwitterContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
         [HttpGet("GetTweets")]
-        public List<Tweet> GetTweets()
+        public async Task<List<Tweet>> GetTweets()
         {
-            return _appDbContext.GetTweets();
+            return await _appDbContext.Tweets.ToListAsync();
         }
 
-        // GET api/<TweetController>/5
+        //GET api/<TweetController>/5
         [HttpGet("{id}")]
-        public Tweet Get(int id)
+        public async Task<ActionResult<Tweet>> Get(int id)
         {
-            return _appDbContext.GetTweet(id);
+            var tweet = await _appDbContext.Tweets.FindAsync(id);
+            if(tweet==null)
+            {
+                return NotFound();  
+            }
+            return tweet;
         }
 
-        // POST api/<TweetController>
+        //// POST api/<TweetController>
         [HttpPost("UploadTweet")]
-        public bool Post([FromBody] Tweet tweet)
+        public async Task<ActionResult<bool>> Post([FromBody] TweetViewModel tweet)
         {
-            return _appDbContext.UploadTweet(tweet);
+            var tw = new Tweet
+            {
+                Likes = tweet.Likes,
+                UserId = tweet.UserId,
+                Content = tweet.Content,
+                CreatedAt = DateTime.Now.ToString(),
+            };
+
+
+            await _appDbContext.AddAsync(tw);
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
         }
 
         // PUT api/<TweetController>/5
         [HttpPost("LikeTweet/{id}")]
-        public bool LikeTweet(int id)
+        public async Task<bool> LikeTweet(int id)
         {
-            return _appDbContext.LikeTweet(id);
+            var tweet = await _appDbContext.Tweets.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (tweet != null)
+            {
+                tweet.Likes++;
+                await _appDbContext.SaveChangesAsync(); 
+                return true; 
+            }
+
+            return false;
         }
 
         // DELETE api/<TweetController>/5

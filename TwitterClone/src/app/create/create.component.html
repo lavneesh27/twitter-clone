@@ -1,9 +1,8 @@
 <div class="container ">
-    <form (submit)="upload()" [formGroup]="uploadForm">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tweet</label>
-            <textarea type="text" class="form-control" formControlName="content" id="content" aria-describedby="emailHelp"></textarea>
+    <form (submit)="upload()" [formGroup]="uploadForm" class="text-center">
+        <div class="my-3">
+            <textarea type="text" class="form-control" formControlName="content" id="content" aria-describedby="emailHelp" style="resize:none" placeholder="What's happening?"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary ">Upload</button>
+        <button type="submit" class="btn">Tweet</button>
     </form>
 </div>

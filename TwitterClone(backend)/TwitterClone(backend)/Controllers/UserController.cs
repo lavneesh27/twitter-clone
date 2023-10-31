@@ -1,6 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using TwitterClone_backend_.Context;
 using TwitterClone_backend_.Models;
-using TwitterClone_backend_.Models.DataAccess;
+using TwitterClone_backend_.ViewModel;
+using static System.Net.Mime.MediaTypeNames;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,38 +17,81 @@ namespace TwitterClone_backend_.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IAppDbContext _appDbContext;
+        private readonly TwitterContext _appDbContext;
         // GET: api/<UserController>
 
-        public UserController(IAppDbContext appDbContext)
+        public UserController(TwitterContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("GetUsers")]
+        public async Task<List<User>> GetTweets()
         {
-            return new string[] { "value1", "value2" };
+            return await _appDbContext.Users.ToListAsync();
         }
         [HttpPost("LoginUser")]
-        public IActionResult LoginUser([FromBody] User user)
+        public async Task<ActionResult<string>> LoginUser([FromBody] UserViewModel user)
         {
-            var token = _appDbContext.IsUserPresent(user.Email, user.Password);
-            if (token == "") token = "invalid";
+            var res = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+            string key = "PFZNBnnnlOGSNbynKqZfxX0tZzjz8zfG";
+            string duration = "60";
+            var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]{
+                new Claim("id", res.Id.ToString()),
+                new Claim("firstName", res.FirstName),
+                new Claim("lastName", res.LastName.ToString()),
+                new Claim("email", res.Email),
+                new Claim("password", res.Password),
+                new Claim("userName", res.UserName),
+                new Claim("dob", res.Dob),
+            };
+
+            var jwtToken = new JwtSecurityToken(
+                issuer: "localhost",
+                audience: "localhost",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(int.Parse(duration)),
+                signingCredentials: credentials
+                );
+            string token =  new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return Ok(token);
         }
         // GET api/<UserController>/5
-        [HttpGet("GetUser{id}")]
-        public User GetUser(int id)
+        [HttpGet("GetUser/{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
         {
-            return _appDbContext.GetUser(id);
+            var user = await _appDbContext.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return user;
         }
 
         // POST api/<UserController>
         [HttpPost("RegisterUser")]
-        public bool Register([FromBody] User user)
+        public async Task<ActionResult<bool>> Register([FromBody] UserViewModel user)
         {
-            return _appDbContext.InsertUser(user);
+            var userInfo = new User();
+            userInfo.Email = user.Email;
+            userInfo.Password = user.Password;
+            userInfo.FirstName = user.FirstName;
+            userInfo.LastName = user.LastName;
+            userInfo.Dob = user.Dob;
+            userInfo.UserName = user.UserName;
+            userInfo.Image = user.Image;
+             await _appDbContext.AddAsync(userInfo);
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
         }
 
         // PUT api/<UserController>/5

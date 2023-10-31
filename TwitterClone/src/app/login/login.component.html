@@ -1,24 +1,16 @@
-<form class="container w-50" [formGroup]="loginForm" (ngSubmit)="login()">
+<div class="login mt-5">
+  <form class="container px-4" [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        formControlName="email"
-      />
+      <input type="email" class="form-control" id="email" formControlName="email" />
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="pwd"
-        formControlName="pwd"
-      />
+      <input type="password" class="form-control" id="pwd" formControlName="pwd" />
     </div>
-  
-    <button type="submit" class="d-block mx-auto btn btn-outline-primary">
-      Submit
+
+    <button type="submit" class="d-block mx-auto btn">
+      Login
     </button>
   </form>
+</div>

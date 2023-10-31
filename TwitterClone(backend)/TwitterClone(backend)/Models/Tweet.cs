@@ -1,10 +1,19 @@
-﻿namespace TwitterClone_backend_.Models
+﻿using System;
+using System.Collections.Generic;
+
+namespace TwitterClone_backend_.Context;
+
+public partial class Tweet
 {
-    public class Tweet
-    {
-        public int Id { get; set; }
-        public string Content { get; set; } = string.Empty;
-        public int Likes { get; set; } = 0;
-        public int UserId { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string? Content { get; set; }
+
+    public int? Likes { get; set; }
+
+    public int UserId { get; set; }
+
+    public string? CreatedAt { get; set; }
+
+    public virtual User User { get; set; } = null!;
 }

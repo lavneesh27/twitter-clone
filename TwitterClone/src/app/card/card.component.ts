@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { User } from '../models/user.model';
 import { MainService } from '../main.service';
@@ -8,12 +8,18 @@ import { MainService } from '../main.service';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
   @Input() tweet!: Tweet;
-
+  user?: User;
   @Output() likeEvent = new EventEmitter<string>();
 
   constructor(private service: MainService) {}
+  ngOnInit(): void {
+    this.service.getUser(this.tweet.userId).subscribe((res: any) => {
+      this.user = res;
+      console.log(this.user!.image)
+    });
+  }
 
   plusLike(tweet: Tweet) {
     this.service.likeTweet(tweet.id).subscribe((res) => {
@@ -24,7 +30,7 @@ export class CardComponent {
 
   getUser(id: number) {
     this.service.getUser(id).subscribe((res: any) => {
-      console.log(res);
+      this.user = res;
     });
   }
 }

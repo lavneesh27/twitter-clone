@@ -16,7 +16,8 @@ export class CreateComponent implements OnInit {
     id:0,
     content:'',
     likes:0,
-    userId:0
+    userId:0,
+    createdAt:''
   };
   uploadForm!: FormGroup;
   user!:User;
@@ -33,8 +34,9 @@ export class CreateComponent implements OnInit {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
     this.user = jwtDecode(localStorage['user'])
     this.tweet.userId = this.user.id;
+    console.log(this.user)
     this.service.upload(this.tweet).subscribe((res)=>{
-      console.log(res)
+      this.route.navigate(["home"]);
     })
   }
 }

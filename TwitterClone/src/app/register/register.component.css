@@ -1,0 +1,16 @@
+form{
+    width: 100%;
+}
+.register{
+    width: 528px;
+}
+
+.btn{
+    border-radius: 50px;
+    background-color: #1D9BF0 !important;
+    border:none;
+    color: white;
+}
+.btn:hover{
+    background-color: #3096DB !important;
+}

@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
 import { CreateComponent } from './create/create.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CreateComponent } from './create/create.component';
     RegisterComponent,
     CardComponent,
     CreateComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
