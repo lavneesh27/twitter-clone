@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using TwitterClone_backend_.Context;
 
-namespace TwitterClone_backend_.Models;
+namespace TwitterClone_backend_.Context;
 
 public partial class TwitterContext : DbContext
 {
@@ -22,7 +21,7 @@ public partial class TwitterContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-LKCHDGI\\SQLEXPRESS;Initial Catalog=Twitter;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-LKCHDGI\\SQLEXPRESS;Initial Catalog=Twitter;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,7 +35,6 @@ public partial class TwitterContext : DbContext
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Likes).HasDefaultValueSql("((0))");
 
             entity.HasOne(d => d.User).WithMany(p => p.Tweets)
                 .HasForeignKey(d => d.UserId)

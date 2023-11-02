@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-body">
-    <div class="profile fw-bold"><img [src]="user?.image" alt="">{{user?.firstName}} {{user?.lastName}} <span
+    <div class="profile fw-bold"><img  [src]="user?.image" alt="" loading="lazy">{{user?.firstName}} {{user?.lastName}} <span
         class="text-muted fw-normal">@{{user?.userName}} . {{tweet.createdAt | date:"dd MMM"}}</span></div>
     <h5 class="card-text my-3">{{tweet.content}}</h5>
-    <div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-between">
       <div>
         <a class="btn p-0 me-2"><i class='bx bx-comment'></i></a>
         <span>{{1}}</span>
@@ -12,13 +12,16 @@
         <a class="btn p-0 me-2"><i class='bx bx-git-compare'></i></a>
         <span>{{2}}</span>
       </div>
-      <div>
-        <a (click)="plusLike(tweet)" class="btn p-0 me-2"><i class='bx bx-heart'></i></a>
+      <div class="d-flex align-items-center">
+        <input type="checkbox" id="like" [(ngModel)]="like" (change)="plusLike(tweet)" [class]="like==false?'form-control bx bx-heart me-2':'form-control bx bxs-heart me-2'">
         <span>{{tweet.likes!==0?tweet.likes:''}}</span>
       </div>
-      <div>
-        <a class="btn p-0 me-2"><i class='bx bx-share'></i></a>
-        <span></span>
+      <div class="dropdown">
+        <a class="btn p-0 me-2" type="button" data-bs-toggle="dropdown" data-bs-toggle="dropdown"><i class='bx bx-share'></i></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="copy()"><i class='bx bx-link' ></i>&nbsp; Copy Link to Tweet</a></li>
+          <li><a class="dropdown-item" (click)="bookmark()"><i class='bx bx-bookmark' ></i>&nbsp; Bookmark</a></li>
+        </ul>
       </div>
     </div>
 

@@ -1,11 +1,11 @@
 <div class="my-4 sidebar">
     <input type="text" class="form-control" placeholder="Search Twitter">
 
-    <div class="my-4">
+    <div class="my-4 people p-3">
         <h5 class="my-3">Who to follow</h5>
         <ul class="list-group" *ngFor="let people of peoples">
             <li class="list-group-item border-0">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-start">
                     <img src="" alt="">
                     <div class="d-flex flex-column">
                         <h6 class="text-strong">{{people.firstName}} {{people.lastName}}</h6>

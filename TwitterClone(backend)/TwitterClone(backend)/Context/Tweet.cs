@@ -15,5 +15,7 @@ public partial class Tweet
 
     public string? CreatedAt { get; set; }
 
+    public byte[]? Image { get; set; }
+
     public virtual User User { get; set; } = null!;
 }

@@ -5,7 +5,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TwitterClone_backend_.Context;
-using TwitterClone_backend_.Models;
 using TwitterClone_backend_.ViewModel;
 using static System.Net.Mime.MediaTypeNames;
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TwitterClone_backend_.Context;
-using TwitterClone_backend_.Models;
 using TwitterClone_backend_.ViewModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,9 +28,9 @@ namespace TwitterClone_backend_.Controllers
         public async Task<ActionResult<Tweet>> Get(int id)
         {
             var tweet = await _appDbContext.Tweets.FindAsync(id);
-            if(tweet==null)
+            if (tweet == null)
             {
-                return NotFound();  
+                return NotFound();
             }
             return tweet;
         }
@@ -56,16 +55,19 @@ namespace TwitterClone_backend_.Controllers
         }
 
         // PUT api/<TweetController>/5
-        [HttpPost("LikeTweet/{id}")]
-        public async Task<bool> LikeTweet(int id)
+        [HttpPost("LikeTweet/{id}/{isLiked}")]
+        public async Task<bool> LikeTweet(int id, bool isLiked)
         {
             var tweet = await _appDbContext.Tweets.FirstOrDefaultAsync(t => t.Id == id);
 
             if (tweet != null)
             {
-                tweet.Likes++;
-                await _appDbContext.SaveChangesAsync(); 
-                return true; 
+                if (!isLiked) tweet.Likes++;
+
+                else tweet.Likes--;
+
+                await _appDbContext.SaveChangesAsync();
+                return true;
             }
 
             return false;

@@ -9,7 +9,6 @@ import { Tweet } from '../models/tweet.model';
 })
 export class HomeComponent implements OnInit{
   tweets:Tweet[]=[];
-  userNames:string[]=[];
   constructor(private service:MainService) {
   }
   ngOnInit(): void {

@@ -14,7 +14,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.service.getUsers().subscribe((res:any)=>{
       this.peoples = res;
-      console.log(this.peoples);
     })
   }
 

@@ -3,7 +3,26 @@
     border: none;
     text-decoration: none;
 }
+
+
 .card{
     border-radius: 0;
-    border: 1px solid rgb(230, 230, 230);
+    border: 1px solid rgba(230, 230, 230, 0.5);
+    width: 600px;
+}
+
+input{
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    outline: none;
+}
+
+.dropdown-item{
+    cursor: pointer;
+}
+
+.dropdown-menu{
+    border: none;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }

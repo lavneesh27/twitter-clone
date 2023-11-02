@@ -9,7 +9,7 @@ nav{
     font-size: large;
     font-weight: bold;
     align-items: baseline;
-    border: 1px solid rgb(230, 230, 230);
+    border: 1px solid rgba(230, 230, 230, 0.5);
 }
 nav .nav-item{
     border-radius: 100px;
@@ -40,4 +40,21 @@ nav .nav-brand i{
     justify-content: center;
     display: flex;
     border: none;
+}
+
+.profile{
+    width: 250px;
+    height: fit-content;
+    border-radius: 100px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    align-items: center;
+    justify-content: start;
+    display: flex;
+    border: none;
+}
+
+.profile:hover{
+    background-color: rgb(230, 230, 230);
 }

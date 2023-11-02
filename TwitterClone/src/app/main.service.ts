@@ -31,9 +31,9 @@ export class MainService {
     return this.http.get(url);
   }
 
-  likeTweet(id: number) {
-    let url = this.baseUrl + 'Tweet/LikeTweet/' + id;
-    return this.http.post(url, null, { responseType: 'text' });
+  likeTweet(id: number, isLiked:boolean) {
+    let url = this.baseUrl + 'Tweet/LikeTweet/' + id +'/'+ isLiked;
+    return this.http.post(url,null , { responseType: 'text'});
   }
 
   getUser(id: number) {

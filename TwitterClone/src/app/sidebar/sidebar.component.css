@@ -12,6 +12,15 @@
   width: 400px;
   padding: 20px;
 }
+
+.people{
+  background-color: rgb(248,249,250); 
+  border-radius: 20px;
+}
+
+.people li{
+  background-color: transparent;
+}
 .btn{
     border-radius: 50px;
     height: 35px;

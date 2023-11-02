@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
 import { CreateComponent } from './create/create.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CardComponent,
     CreateComponent,
     SidebarComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      
+    }
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    font-size: 90%;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  font-size: 90%;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }

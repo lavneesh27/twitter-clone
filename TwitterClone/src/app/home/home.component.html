@@ -1,9 +1,9 @@
-<div class="container home">
+<div class="container home p-3">
   <div class="header d-flex align-items-center my-4">
     <h5>Home</h5>
   </div>
   <ul class="list-group d-flex justify-content-center">
-    <li class="list-group-item d-flex justify-content-center" *ngFor="let tweet of tweets"><app-card
+    <li class="list-group-item d-flex justify-content-center p-0" *ngFor="let tweet of tweets"><app-card
         (likeEvent)="ngOnInit()" [tweet]="tweet"></app-card></li>
   </ul>
 </div>
