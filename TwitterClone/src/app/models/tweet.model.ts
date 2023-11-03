@@ -5,4 +5,5 @@ export interface Tweet {
   likes?: number;
   userId: number;
   createdAt: string;
+  image?:Uint8Array | number[];
 }

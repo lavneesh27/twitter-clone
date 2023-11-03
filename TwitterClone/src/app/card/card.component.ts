@@ -11,6 +11,8 @@ import { MainService } from '../main.service';
 export class CardComponent implements OnInit {
   @Input() tweet!: Tweet;
   user?: User;
+  dataURL?:string
+  userURL?:string
   like: boolean = false;
   @Output() likeEvent = new EventEmitter<string>();
 
@@ -18,9 +20,17 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.service.getUser(this.tweet.userId).subscribe((res: any) => {
       this.user = res;
+      if(this.user?.image){
+        // console.log(this.user.image)
+        this.userURL = 'data:image/jpeg;base64,' + this.user.image;
+      }
     });
 
-    console.log(this.like)
+    if(this.tweet.image){
+      this.dataURL = 'data:image/jpeg;base64,' + this.tweet.image;
+    }
+
+    // console.log(this.like)
   }
 
   // plusLike(tweet: Tweet) {
@@ -47,11 +57,6 @@ export class CardComponent implements OnInit {
       });
     }
     // this.likeEvent.emit(this.like ? 'like' : 'unlike'); 
-  }
-  getUser(id: number) {
-    this.service.getUser(id).subscribe((res: any) => {
-      this.user = res;
-    });
   }
   copy(){
     navigator.clipboard.writeText(window.location.href);

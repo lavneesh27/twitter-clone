@@ -45,6 +45,7 @@ namespace TwitterClone_backend_.Controllers
                 UserId = tweet.UserId,
                 Content = tweet.Content,
                 CreatedAt = DateTime.Now.ToString(),
+                Image = tweet.Image,
             };
 
 

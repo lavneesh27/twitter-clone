@@ -8,6 +8,7 @@ import {
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: MainService,
-    private route: Router
+    private route: Router,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -43,7 +45,7 @@ export class RegisterComponent implements OnInit {
           ],
         ],
         email: ['', [Validators.required, Validators.email]],
-        dob: ['', Validators.required],
+        dob: [''],
         userName: ['', [Validators.required, Validators.minLength(2)]],
         password: [
           '',
@@ -80,13 +82,15 @@ export class RegisterComponent implements OnInit {
       lastName: this.LastName.value,
       email: this.Email.value,
       password: this.Password.value,
-      dob: this.DOB.value,
+      dob: this.DOB.value.toString(),
       userName: this.UserName.value,
-      image: Array.from(this.image!),
+      image: this.image?Array.from(this.image):null,
     };
 
     this.service.registerUser(user).subscribe((res: any) => {
-      console.log('Registration Successful!' + res);
+      this.toastr.success('Registration Successful!');
+    },(err)=>{
+      this.toastr.warning('Registration Failed!');
     });
   }
 

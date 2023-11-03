@@ -2,52 +2,47 @@
     <form class="container px-4" [formGroup]="registerForm" (ngSubmit)="register()">
         <div class="row mb-3">
             <div class="col">
-                <label for="exampleInputEmail1" class="form-label">First Name</label>
+                <label for="exampleInputEmail1" class="form-label">First Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="firstName" formControlName="firstName" [ngClass]="
-                submitted && registerForm.get('firstName')!.invalid
+                (submitted || registerForm.get('firstName')!.touched) && registerForm.get('firstName')!.invalid
                   ? 'is-invalid'
                   : ''
               " />
-                <div class="invalid-feedback" *ngIf="submitted && registerForm.get('firstName')!.invalid">
+                <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('firstName')!.touched) && registerForm.get('firstName')!.invalid">
                     First Name should not be empty
                 </div>
             </div>
             <div class="col">
-                <label for="exampleInputEmail1" class="form-label">Last Name</label>
+                <label for="exampleInputEmail1" class="form-label">Last Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="lastName" formControlName="lastName" [ngClass]="
-                submitted && registerForm.get('lastName')!.invalid ? 'is-invalid' : ''
+                (submitted || registerForm.get('lastName')!.touched) && registerForm.get('lastName')!.invalid ? 'is-invalid' : ''
               " />
-                <div class="invalid-feedback" *ngIf="submitted && registerForm.get('lastName')!.invalid">
+                <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('lastName')!.touched) && registerForm.get('lastName')!.invalid">
                     Last Name should not be empty
                 </div>
             </div>
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <label for="exampleInputEmail1" class="form-label">Email address <span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp" formControlName="email"
                 [ngClass]="
-              submitted && registerForm.get('email')!.invalid ? 'is-invalid' : ''
+                (submitted || registerForm.get('email')!.touched) && registerForm.get('email')!.invalid ? 'is-invalid' : ''
             " />
-            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('email')!.invalid">
+            <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('email')!.touched) && registerForm.get('email')!.invalid">
                 Please enter a valid email address.
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">DOB</label>
-            <input type="text" class="form-control" id="dob" formControlName="dob" [ngClass]="
-              submitted && registerForm.get('dob')!.invalid ? 'is-invalid' : ''
-            " />
-            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('dob')!.invalid">
-                DOB should not be empty
-            </div>
+            <input type="date" class="form-control" id="dob" formControlName="dob">
         </div>
     
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">User Name</label>
+            <label for="exampleInputEmail1" class="form-label">User Name <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="userName" formControlName="userName" [ngClass]="
-                submitted && registerForm.get('userName')!.invalid ? 'is-invalid' : ''
+            (submitted || registerForm.get('userName')!.touched) && registerForm.get('userName')!.invalid ? 'is-invalid' : ''
               " />
-            <div class="invalid-feedback" *ngIf="submitted && registerForm.get('userName')!.invalid">
+            <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('userName')!.touched) && registerForm.get('userName')!.invalid">
                 UserName should not be empty
             </div>
         </div>
@@ -55,31 +50,33 @@
     
         <div class="row mb-3">
             <div class="col">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <label for="exampleInputPassword1" class="form-label">Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control" id="password" formControlName="password" [ngClass]="
-                submitted && registerForm.get('password')!.invalid ? 'is-invalid' : ''
+                (submitted || registerForm.get('password')!.touched) && registerForm.get('password')!.invalid ? 'is-invalid' : ''
               " />
-                <div class="invalid-feedback" *ngIf="submitted && registerForm.get('password')!.invalid">
+                <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('password')!.touched) && registerForm.get('password')!.invalid">
                     Password must contain at least 1 capital letter, 1 small letter, 1
                     number, and 1 special character.
                 </div>
             </div>
             <div class="col">
-                <label for="exampleInputPassword2" class="form-label">Repeat Password</label>
+                <label for="exampleInputPassword2" class="form-label">Repeat Password <span class="text-danger">*</span></label>
                 <input type="password" class="form-control" id="rPassword" formControlName="rPassword" [ngClass]="
-                submitted && registerForm.get('password')!.invalid ? 'is-invalid' : ''
+                (submitted || registerForm.get('rPassword')!.touched) && registerForm.get('rPassword')!.invalid ? 'is-invalid' : ''
               " />
+              <div class="invalid-feedback" *ngIf="(submitted || registerForm.get('rPassword')!.touched) && registerForm.get('rPassword')!.invalid">
+                Passwords do not match! 
+            </div>
             </div>
     
         </div>
         <div class="col">
             <label for="image" class="form-label">Upload Image</label>
-            <input type="file" class="form-control" id="image" accept="image/*" formControlName="image" [ngClass]="
-            submitted && registerForm.get('image')!.invalid ? 'is-invalid' : ''
-          " (change)="onFileSelected($event)" />
+            <input type="file" class="form-control" id="image" accept="image/*" formControlName="image" 
+           (change)="onFileSelected($event)" />
         </div>
         <div class="text-center mt-3">
-            <button type="submit"  class="mx-auto btn btn-primary">
+            <button type="submit"  class="mx-auto btn btn-primary" [disabled]="registerForm.invalid">
                 Register
             </button>
     

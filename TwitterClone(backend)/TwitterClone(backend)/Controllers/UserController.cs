@@ -51,6 +51,7 @@ namespace TwitterClone_backend_.Controllers
                 new Claim("password", res.Password),
                 new Claim("userName", res.UserName),
                 new Claim("dob", res.Dob),
+                new Claim("image", res.Image.ToString()),
             };
 
             var jwtToken = new JwtSecurityToken(
@@ -60,7 +61,7 @@ namespace TwitterClone_backend_.Controllers
                 expires: DateTime.Now.AddMinutes(int.Parse(duration)),
                 signingCredentials: credentials
                 );
-            string token =  new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            string token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return Ok(token);
         }
         // GET api/<UserController>/5
@@ -87,7 +88,7 @@ namespace TwitterClone_backend_.Controllers
             userInfo.Dob = user.Dob;
             userInfo.UserName = user.UserName;
             userInfo.Image = user.Image;
-             await _appDbContext.AddAsync(userInfo);
+            await _appDbContext.AddAsync(userInfo);
             await _appDbContext.SaveChangesAsync();
 
             return true;

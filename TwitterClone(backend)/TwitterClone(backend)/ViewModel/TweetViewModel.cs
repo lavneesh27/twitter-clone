@@ -10,5 +10,7 @@ namespace TwitterClone_backend_.ViewModel
         public int? Likes { get; set; }
 
         public int UserId { get; set; }
+
+        public byte[]? Image { get; set; }
     }
 }

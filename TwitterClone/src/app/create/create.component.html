@@ -3,6 +3,15 @@
         <div class="my-3">
             <textarea type="text" class="form-control" formControlName="content" id="content" aria-describedby="emailHelp" style="resize:none" placeholder="What's happening?"></textarea>
         </div>
+        <div class="my-3">
+            <label for="image" class="btn w-25 d-flex justify-content-center" >
+                <i class="bx bx-upload"></i> &nbsp; Upload File
+              </label>
+              <input type="file" class="d-none" [(ngModel)]="image" accept="image/*" formControlName="image" id="image" (change)="onFileSelected($event)">
+            
+        </div>
         <button type="submit" class="btn">Tweet</button>
+
+        <img *ngIf="dataURL" class="img-thumbnail my-4" [src]='dataURL' alt="image">
     </form>
 </div>
