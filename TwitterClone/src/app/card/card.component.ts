@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '../models/tweet.model';
 import { User } from '../models/user.model';
 import { MainService } from '../main.service';
+import { Bookmark } from '../models/bookmark.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-card',
@@ -11,22 +13,24 @@ import { MainService } from '../main.service';
 export class CardComponent implements OnInit {
   @Input() tweet!: Tweet;
   user?: User;
-  dataURL?:string
-  userURL?:string
+  loginUser?: User;
+  dataURL?: string;
+  userURL?: string;
   like: boolean = false;
   @Output() likeEvent = new EventEmitter<string>();
 
   constructor(private service: MainService) {}
   ngOnInit(): void {
+    this.loginUser = jwtDecode(sessionStorage.getItem('user')!);
     this.service.getUser(this.tweet.userId).subscribe((res: any) => {
       this.user = res;
-      if(this.user?.image){
+      if (this.user?.image) {
         // console.log(this.user.image)
         this.userURL = 'data:image/jpeg;base64,' + this.user.image;
       }
     });
 
-    if(this.tweet.image){
+    if (this.tweet.image) {
       this.dataURL = 'data:image/jpeg;base64,' + this.tweet.image;
     }
 
@@ -56,12 +60,19 @@ export class CardComponent implements OnInit {
         this.tweet.likes!--;
       });
     }
-    // this.likeEvent.emit(this.like ? 'like' : 'unlike'); 
+    // this.likeEvent.emit(this.like ? 'like' : 'unlike');
   }
-  copy(){
+  copy() {
     navigator.clipboard.writeText(window.location.href);
   }
-  bookmark(){
-    
+  bookmark() {
+    let bookmark: Bookmark = {
+      id: 0,
+      userId: this.loginUser!.id,
+      tweetId: this.tweet.id,
+    };
+    this.service.addBookmark(bookmark).subscribe((res) => {
+      console.log(res);
+    });
   }
 }

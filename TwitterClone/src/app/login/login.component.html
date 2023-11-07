@@ -1,5 +1,6 @@
 <div class="login p-3">
   <div class="header d-flex align-items-center my-4 ">
+    <a href="javascript:void(0)" (click)="goBack()" class="back me-3"><i class='bx bx-left-arrow-alt  fs-3'></i></a>
     <h5>Login</h5>
   </div>
   <form class="container px-4" [formGroup]="loginForm" (ngSubmit)="login()">
@@ -12,7 +13,7 @@
       <input type="password" class="form-control" id="pwd" formControlName="pwd" />
     </div>
 
-    <button type="submit" class="d-block mx-auto btn">
+    <button type="submit" class="d-block mx-auto btn" [disabled]="loginForm.invalid">
       Login
     </button>
   </form>

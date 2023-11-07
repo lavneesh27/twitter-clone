@@ -24,7 +24,7 @@ namespace TwitterClone_backend_.Controllers
         }
 
         //GET api/<TweetController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GetTweet/{id}")]
         public async Task<ActionResult<Tweet>> Get(int id)
         {
             var tweet = await _appDbContext.Tweets.FindAsync(id);

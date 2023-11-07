@@ -10,6 +10,26 @@
 
 .profile{
     width: 628px;
+    height: 100vh;
     border: 1px solid rgba(230, 230, 230,0.5);
     padding:0;
+}
+.text-sm{
+    font-size: 15px;
+    font-weight: 400;
+}
+.back{
+    text-decoration: none;
+    color: black;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    /* background-color: aquamarine; */
+    transition: all 0.5s;
+}
+.back:hover{
+    background-color: rgb(230, 230, 230);
 }

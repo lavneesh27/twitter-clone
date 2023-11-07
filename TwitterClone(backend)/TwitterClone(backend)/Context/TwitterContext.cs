@@ -15,6 +15,8 @@ public partial class TwitterContext : DbContext
     {
     }
 
+    public virtual DbSet<Bookmark> Bookmarks { get; set; }
+
     public virtual DbSet<Tweet> Tweets { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -25,6 +27,13 @@ public partial class TwitterContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Bookmark>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Bookmark__3214EC073E0EF102");
+
+            entity.ToTable("Bookmark");
+        });
+
         modelBuilder.Entity<Tweet>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Twwet");

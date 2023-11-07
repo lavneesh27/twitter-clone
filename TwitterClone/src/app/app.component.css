@@ -2,3 +2,8 @@ router-outlet{
     margin-left: 380px !important;
     width: 0     !important;
 }
+
+.back{
+    text-decoration: none;
+    color: black;
+}

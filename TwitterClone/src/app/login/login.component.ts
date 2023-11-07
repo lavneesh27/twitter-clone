@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
+
 import {
   FormBuilder,
   FormControl,
@@ -16,12 +18,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  submitted: boolean = false;
   constructor(
     private fb: FormBuilder,
     private service: MainService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) {}
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -37,8 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.submitted = true;
-
     this.service.loginUser(this.Email.value, this.PWD.value).subscribe(
       (res: any) => {
         sessionStorage.setItem('user', res.toString());
@@ -61,5 +61,9 @@ export class LoginComponent implements OnInit {
   }
   get PWD(): FormControl {
     return this.loginForm.get('pwd') as FormControl;
+  }
+
+  goBack(){
+    this._location.back();
   }
 }

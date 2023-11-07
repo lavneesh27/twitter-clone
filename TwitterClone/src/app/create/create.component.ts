@@ -5,6 +5,7 @@ import { Tweet } from '../models/tweet.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-create',
@@ -28,7 +29,8 @@ export class CreateComponent implements OnInit {
   constructor(
     private service: MainService,
     private route: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _location: Location
   ) {}
   ngOnInit(): void {
     this.uploadForm = this.fb.group({
@@ -82,5 +84,8 @@ export class CreateComponent implements OnInit {
     this.service.upload(this.tweet).subscribe((res)=>{
       this.route.navigate(["home"]);
     })
+  }
+  goBack(){
+    this._location.back();
   }
 }

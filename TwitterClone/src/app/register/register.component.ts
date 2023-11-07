@@ -9,6 +9,7 @@ import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { ToastrService } from 'ngx-toastr';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private service: MainService,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _location: Location
   ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -86,6 +88,7 @@ export class RegisterComponent implements OnInit {
       dob: this.DOB.value.toString(),
       userName: this.UserName.value,
       image: this.image?Array.from(this.image):null,
+      createdAt:'',
     };
 
     this.service.registerUser(user).subscribe((res: any) => {
@@ -130,6 +133,9 @@ export class RegisterComponent implements OnInit {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     return new Uint8Array(byteNumbers);
+  }
+  goBack(){
+    this._location.back();
   }
 
   get FirstName(): FormControl {

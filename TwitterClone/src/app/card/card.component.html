@@ -1,7 +1,8 @@
 <div class="card">
   <div class="card-body">
     <div class="profile fw-bold d-flex align-items-center">
-      <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px" ><img *ngIf="userURL"  [src]="userURL" style="width:100%;height:100%" ></div>
+      <div class="rounded-circle me-2 overflow-hidden" style="width:40px;height:40px" ><img *ngIf="userURL"  [src]="userURL" style="width:100%;height:100%"><span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">{{
+        user?.firstName?.charAt(0) }}</span></div>
       {{user?.firstName}} {{user?.lastName}}&nbsp;  <span
         class="text-muted fw-normal">@{{user?.userName}} . {{tweet.createdAt | date:"dd MMM"}}</span></div>
     <h5 class="card-text my-3">{{tweet.content}}</h5>

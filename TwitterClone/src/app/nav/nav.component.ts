@@ -18,7 +18,7 @@ export class NavComponent implements OnInit{
   ngOnInit(): void {
     this.user = jwtDecode(sessionStorage.getItem('user')!);
     // console.log(sessionStorage.getItem('user')!)
-    this.imgUrl+=this.bytesToBase64(this.user.image);
+    this.imgUrl+=this.user.image;
     // console.log(typeof this.user.image)
   }
 
@@ -33,6 +33,7 @@ export class NavComponent implements OnInit{
 
   logout(){
     sessionStorage.clear();
+    localStorage.clear();
     this.router.navigate(["/login"]).then(()=>{
       window.location.reload();
     });

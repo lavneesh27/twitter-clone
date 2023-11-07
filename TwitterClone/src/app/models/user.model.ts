@@ -9,4 +9,5 @@ export interface User {
   password: string;
   userName: string;
   image?:Uint8Array | number[]|null;
+  createdAt:string;
 }

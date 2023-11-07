@@ -9,13 +9,14 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CardComponent } from './card/card.component';
 import { CreateComponent } from './create/create.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginFirstComponent } from './login-first/login-first.component';
+import { BookmarkComponent } from './bookmark/bookmark.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LoginFirstComponent } from './login-first/login-first.component';
     SidebarComponent,
     ProfileComponent,
     LoginFirstComponent,
+    BookmarkComponent,
   ],
   imports: [
     BrowserModule,

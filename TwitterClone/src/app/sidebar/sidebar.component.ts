@@ -18,7 +18,9 @@ export class SidebarComponent implements OnInit {
     this.user = jwtDecode(sessionStorage.getItem('user')!)
     if(!sessionStorage.getItem('user')) return;
     this.service.getUsers().subscribe((res:any)=>{
-      this.peoples = res;
+      this.peoples = res.filter((people:any)=>{
+        return people.userName!=this.user.userName;
+      });
       console.log(this.peoples[0].image)
     })
   }
