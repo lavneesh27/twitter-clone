@@ -1,5 +1,7 @@
-.container{
+.create{
     width: 628px;
+    border: 1px solid rgba(230, 230, 230,0.5);
+    padding:0;
 }
 
 .btn{
@@ -15,4 +17,9 @@
 }
 .btn:hover{
     background-color: #3096DB !important;
+}
+.header{
+    width: 100%;
+    height: 50px;
+    z-index: 3;
 }

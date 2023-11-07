@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   image: Uint8Array|null=null;
   submitted: boolean = false;
+  dataURL: string = '';
   constructor(
     private fb: FormBuilder,
     private service: MainService,
@@ -89,6 +90,7 @@ export class RegisterComponent implements OnInit {
 
     this.service.registerUser(user).subscribe((res: any) => {
       this.toastr.success('Registration Successful!');
+      this.route.navigate(["/home"]);
     },(err)=>{
       this.toastr.warning('Registration Failed!');
     });
@@ -109,6 +111,16 @@ export class RegisterComponent implements OnInit {
       this.image = this.base64ToBytes(base64);
     };
     reader.readAsDataURL(file);
+
+    setTimeout(() => {
+      if (this.image) {
+        const base64String = btoa(
+          String.fromCharCode.apply(null, Array.from(this.image))
+        );
+        // console.log(this.image);
+        this.dataURL = 'data:image/jpeg;base64,' + base64String;
+      }
+    }, 300);
   }
 
   base64ToBytes(base64: string): Uint8Array {

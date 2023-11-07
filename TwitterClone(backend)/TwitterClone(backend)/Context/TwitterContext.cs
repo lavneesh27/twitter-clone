@@ -48,8 +48,12 @@ public partial class TwitterContext : DbContext
 
             entity.ToTable("User");
 
+            entity.Property(e => e.CreatedAt)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Dob)
                 .HasMaxLength(255)
+                .IsUnicode(false)
                 .HasColumnName("DOB");
             entity.Property(e => e.Email).HasMaxLength(255);
             entity.Property(e => e.FirstName).HasMaxLength(255);

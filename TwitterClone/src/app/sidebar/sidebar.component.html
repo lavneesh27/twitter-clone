@@ -1,5 +1,5 @@
-<div class="my-4 sidebar">
-    <input type="text" class="form-control" placeholder="Search Twitter">
+<div class="my-4 sidebar"  *ngIf="user">
+    <input type="text" class="form-control" id="user" name="user" placeholder="Search Twitter" [(ngModel)]="inputUser" (ngModelChange)="filter(inputUser)">
 
     <div class="my-4 people p-3">
         <h5 class="my-3">Who to follow</h5>

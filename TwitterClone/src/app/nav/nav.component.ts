@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../main.service';
 import { User } from '../models/user.model';
 import { jwtDecode } from "jwt-decode";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -12,12 +13,13 @@ export class NavComponent implements OnInit{
   user!:User;
   imgUrl:string='data:image/jpeg;base64,';
 
-  constructor(private service: MainService) {    
+  constructor(private service: MainService, private router:Router) {    
   }
   ngOnInit(): void {
-    this.user = jwtDecode(localStorage.getItem('user')!);
+    this.user = jwtDecode(sessionStorage.getItem('user')!);
+    // console.log(sessionStorage.getItem('user')!)
     this.imgUrl+=this.bytesToBase64(this.user.image);
-    console.log(typeof this.user.image)
+    // console.log(typeof this.user.image)
   }
 
   bytesToBase64(bytes:any) {
@@ -27,6 +29,16 @@ export class NavComponent implements OnInit{
       binary += String.fromCharCode(byteArray[i]);
     }
     return window.btoa(binary);
+  }
+
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate(["/login"]).then(()=>{
+      window.location.reload();
+    });
+  }
+  login(){
+    this.router.navigate(["/login"]);
   }
 
 }

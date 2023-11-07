@@ -14,7 +14,7 @@ export class ProfileComponent {
   constructor(private service: MainService) {    
   }
   ngOnInit(): void {
-    this.user = jwtDecode(localStorage.getItem('user')!);
+    this.user = jwtDecode(sessionStorage.getItem('user')!);
   }
 
 }

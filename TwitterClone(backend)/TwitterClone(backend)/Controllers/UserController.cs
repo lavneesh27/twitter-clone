@@ -52,6 +52,7 @@ namespace TwitterClone_backend_.Controllers
                 new Claim("userName", res.UserName),
                 new Claim("dob", res.Dob),
                 new Claim("image", res.Image.ToString()),
+                new Claim("createdAt", DateTime.Now.ToString())
             };
 
             var jwtToken = new JwtSecurityToken(
@@ -88,6 +89,7 @@ namespace TwitterClone_backend_.Controllers
             userInfo.Dob = user.Dob;
             userInfo.UserName = user.UserName;
             userInfo.Image = user.Image;
+            userInfo.CreatedAt = DateTime.Now.ToString();
             await _appDbContext.AddAsync(userInfo);
             await _appDbContext.SaveChangesAsync();
 

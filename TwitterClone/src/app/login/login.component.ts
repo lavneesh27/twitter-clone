@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MainService } from '../main.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: MainService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -39,8 +41,14 @@ export class LoginComponent implements OnInit {
 
     this.service.loginUser(this.Email.value, this.PWD.value).subscribe(
       (res: any) => {
-        localStorage.setItem('user', res.toString());
+        sessionStorage.setItem('user', res.toString());
         this.toastr.success('Login Successful!');
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+        
+        this.router.navigate(["/home"])
       },
       (err) => {
         console.log('error occured');
