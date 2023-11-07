@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
 import {Location} from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create',
@@ -30,9 +31,15 @@ export class CreateComponent implements OnInit {
     private service: MainService,
     private route: Router,
     private fb: FormBuilder,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
+    if(!localStorage.getItem('user') && !sessionStorage.getItem('user')){
+      this.route.navigate(['login']);
+      return;
+    }
+
     this.uploadForm = this.fb.group({
       content: ['', [Validators.required, Validators.minLength(5)]],
       image: [''],
@@ -61,7 +68,6 @@ export class CreateComponent implements OnInit {
         const base64String = btoa(
           String.fromCharCode.apply(null, Array.from(this.image))
         );
-        // console.log(this.image);
         this.dataURL = 'data:image/jpeg;base64,' + base64String;
       }
     }, 300);
@@ -83,6 +89,7 @@ export class CreateComponent implements OnInit {
     this.tweet.userId = this.user.id;
     this.service.upload(this.tweet).subscribe((res)=>{
       this.route.navigate(["home"]);
+      this.toastr.success('uploaded');
     })
   }
   goBack(){

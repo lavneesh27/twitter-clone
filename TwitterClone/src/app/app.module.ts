@@ -12,9 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateComponent } from './create/create.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginFirstComponent } from './login-first/login-first.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { CardComponent } from './card/card.component';
 
@@ -29,7 +28,6 @@ import { CardComponent } from './card/card.component';
     CreateComponent,
     SidebarComponent,
     ProfileComponent,
-    LoginFirstComponent,
     BookmarkComponent,
   ],
   imports: [
@@ -44,7 +42,7 @@ import { CardComponent } from './card/card.component';
     }
     ),
   ],
-  providers: [],
+  providers: [ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

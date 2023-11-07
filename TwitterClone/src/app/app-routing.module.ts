@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CreateComponent } from './create/create.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LoginFirstComponent } from './login-first/login-first.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
@@ -15,7 +14,6 @@ const routes: Routes = [
   {path:'register', component:RegisterComponent},
   {path:'create', component:CreateComponent},
   {path:'profile', component:ProfileComponent},
-  {path:'loginFirst', component:LoginFirstComponent},
   {path:'bookmark', component:BookmarkComponent},
 ];
 

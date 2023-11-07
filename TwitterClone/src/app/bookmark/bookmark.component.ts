@@ -4,7 +4,7 @@ import { MainService } from '../main.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bookmark',
@@ -14,10 +14,16 @@ import {Location} from '@angular/common';
 export class BookmarkComponent implements OnInit {
   tweets: Tweet[] = [];
   user!: User;
-  constructor(private service: MainService, private router: Router, private _location: Location) {}
+  constructor(
+    private service: MainService,
+    private router: Router,
+    private _location: Location
+  ) {}
   ngOnInit(): void {
-    this.user = jwtDecode(sessionStorage.getItem('user')!);
-    if (!sessionStorage.getItem('user')) {
+    this.user = localStorage.getItem('user')
+      ? jwtDecode(localStorage.getItem('user')!)
+      : jwtDecode(sessionStorage.getItem('user')!);
+    if (!this.user.id) {
       this.router.navigate(['login']);
     }
     this.service.getBookmarks(this.user.id).subscribe((res: any) => {
@@ -28,7 +34,7 @@ export class BookmarkComponent implements OnInit {
       });
     });
   }
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }

@@ -78,7 +78,6 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.submitted = true;
-    console.log(this.image);
     let user: User = {
       id: 0,
       firstName: this.FirstName.value,
@@ -120,7 +119,6 @@ export class RegisterComponent implements OnInit {
         const base64String = btoa(
           String.fromCharCode.apply(null, Array.from(this.image))
         );
-        // console.log(this.image);
         this.dataURL = 'data:image/jpeg;base64,' + base64String;
       }
     }, 300);

@@ -19,13 +19,15 @@ export class CardComponent implements OnInit {
   like: boolean = false;
   @Output() likeEvent = new EventEmitter<string>();
 
-  constructor(private service: MainService) {}
+  constructor(private service: MainService, ) {}
   ngOnInit(): void {
-    this.loginUser = jwtDecode(sessionStorage.getItem('user')!);
+    const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
+    if (userToken) {
+      this.loginUser = jwtDecode(userToken);
+    }
     this.service.getUser(this.tweet.userId).subscribe((res: any) => {
       this.user = res;
       if (this.user?.image) {
-        // console.log(this.user.image)
         this.userURL = 'data:image/jpeg;base64,' + this.user.image;
       }
     });
@@ -34,7 +36,6 @@ export class CardComponent implements OnInit {
       this.dataURL = 'data:image/jpeg;base64,' + this.tweet.image;
     }
 
-    // console.log(this.like)
   }
 
   // plusLike(tweet: Tweet) {
@@ -72,7 +73,7 @@ export class CardComponent implements OnInit {
       tweetId: this.tweet.id,
     };
     this.service.addBookmark(bookmark).subscribe((res) => {
-      console.log(res);
+      
     });
   }
 }

@@ -51,6 +51,7 @@ namespace TwitterClone_backend_.Controllers
                 new Claim("password", res.Password),
                 new Claim("userName", res.UserName),
                 new Claim("dob", res.Dob),
+                 new Claim("image", res.Image.ToString()),
                 new Claim("createdAt", res.CreatedAt.ToString())
             };
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 import {
   FormBuilder,
@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  remember: boolean = false;
   constructor(
     private fb: FormBuilder,
     private service: MainService,
@@ -28,30 +29,25 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pwd: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$'),
-        ],
-      ],
+      pwd: ['', [Validators.required]],
+      rem: [false],
     });
   }
 
   login() {
     this.service.loginUser(this.Email.value, this.PWD.value).subscribe(
       (res: any) => {
-        sessionStorage.setItem('user', res.toString());
-        this.toastr.success('Login Successful!');
-        
+        this.remember
+          ? localStorage.setItem('user', res.toString())
+          : sessionStorage.setItem('user', res.toString());
+
         setTimeout(() => {
           window.location.reload();
         }, 500);
-        
-        this.router.navigate(["/home"])
+        this.router.navigate(['home']);
+        this.toastr.success('Login Successful!');
       },
       (err) => {
-        console.log('error occured');
         this.toastr.warning('Invalid Credentials');
       }
     );
@@ -63,7 +59,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('pwd') as FormControl;
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }

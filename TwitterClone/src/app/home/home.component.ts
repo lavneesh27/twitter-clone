@@ -13,8 +13,9 @@ export class HomeComponent implements OnInit{
   constructor(private service:MainService, private router: Router) {
   }
   ngOnInit(): void {
-    if(!sessionStorage.getItem('user')){
-      this.router.navigate(['login'])
+    if(!localStorage.getItem('user') && !sessionStorage.getItem('user')){
+      this.router.navigate(['login']);
+      return;
     }
     this.service.loadTweets().subscribe((res:any)=>{
       this.tweets = res;

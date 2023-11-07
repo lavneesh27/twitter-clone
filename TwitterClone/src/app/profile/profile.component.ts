@@ -4,6 +4,7 @@ import { MainService } from '../main.service';
 import { jwtDecode } from 'jwt-decode';
 import { Tweet } from '../models/tweet.model';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,10 +16,15 @@ export class ProfileComponent {
   user!:User;
   tweets!:Tweet[];
 
-  constructor(private service: MainService, private _location: Location) {    
+  constructor(private service: MainService, private _location: Location,private router:Router) {    
   }
   ngOnInit(): void {
-    this.user = jwtDecode(sessionStorage.getItem('user')!);
+    this.user = localStorage.getItem('user')
+      ? jwtDecode(localStorage.getItem('user')!)
+      : jwtDecode(sessionStorage.getItem('user')!);
+    if (!this.user.id) {
+      this.router.navigate(['login']);
+    }
     this.service.loadTweets().subscribe((res:any)=>{
       this.tweets = res.filter((tweet:Tweet)=>{
         return tweet.userId==this.user.id;
