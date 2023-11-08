@@ -42,7 +42,7 @@ namespace TwitterClone_backend_.Controllers
             string duration = "60";
             var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
-
+            byte[] imageValue = res.Image != null ? res.Image : null;
             var claims = new[]{
                 new Claim("id", res.Id.ToString()),
                 new Claim("firstName", res.FirstName),
@@ -51,7 +51,7 @@ namespace TwitterClone_backend_.Controllers
                 new Claim("password", res.Password),
                 new Claim("userName", res.UserName),
                 new Claim("dob", res.Dob),
-                 new Claim("image", res.Image.ToString()),
+                new Claim("image", imageValue != null ? Convert.ToBase64String(imageValue) : null),
                 new Claim("createdAt", res.CreatedAt.ToString())
             };
 

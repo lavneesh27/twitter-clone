@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     image: [],
   };
   uploadForm!: FormGroup;
-  user!: User;
+  user: any;
   constructor(
     private service: MainService,
     private router: Router,
@@ -37,6 +37,10 @@ export class HomeComponent implements OnInit {
     if (!localStorage.getItem('user') && !sessionStorage.getItem('user')) {
       this.router.navigate(['login']);
       return;
+    }
+    const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
+    if (userToken) {
+      this.user = jwtDecode(userToken);
     }
     this.service.loadTweets().subscribe((res: any) => {
       this.tweets = res;
@@ -72,6 +76,7 @@ export class HomeComponent implements OnInit {
           String.fromCharCode.apply(null, Array.from(image))
         );
         this.dataURL = 'data:image/jpeg;base64,' + base64String;
+     
       }
     }, 300);
   }
@@ -86,7 +91,7 @@ export class HomeComponent implements OnInit {
 
   upload() {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
-    this.user = jwtDecode(sessionStorage['user']);
+    
     this.tweet.userId = this.user.id;
     this.service.upload(this.tweet).subscribe(() => {
       this.toastr.success('uploaded');

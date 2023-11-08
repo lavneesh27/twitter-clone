@@ -33,3 +33,14 @@
 .back:hover{
     background-color: rgb(230, 230, 230);
 }
+
+.no-data{
+    height: 40vh;
+    width: 628px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    color: #919191;
+    flex-direction: column;
+  }
