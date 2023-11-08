@@ -35,3 +35,6 @@ footer *{
     text-decoration: none;
     color: black;
 }
+footer a{
+  cursor:not-allowed;
+}

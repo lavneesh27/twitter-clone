@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit {
   filter(searchText: string) {
     this.service.getUsers().subscribe((res: any) => {
       this.peoples = res.filter((user: User) => {
-        return user.firstName.toLowerCase().includes(searchText.toLowerCase());
+        return user.firstName.toLowerCase().includes(searchText.toLowerCase()) && user.userName !== this.user.userName;
       });
     });
   }

@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { MainService } from '../main.service';
 import { Bookmark } from '../models/bookmark.model';
 import { jwtDecode } from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-card',
@@ -19,7 +20,7 @@ export class CardComponent implements OnInit {
   like: boolean = false;
   @Output() likeEvent = new EventEmitter<string>();
 
-  constructor(private service: MainService, ) {}
+  constructor(private service: MainService, private toastr: ToastrService) {}
   ngOnInit(): void {
     const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
     if (userToken) {
@@ -64,7 +65,9 @@ export class CardComponent implements OnInit {
     // this.likeEvent.emit(this.like ? 'like' : 'unlike');
   }
   copy() {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(window.location.href).then(()=>{
+      this.toastr.success('Copied to Clipboard')
+    });
   }
   bookmark() {
     let bookmark: Bookmark = {
@@ -73,7 +76,7 @@ export class CardComponent implements OnInit {
       tweetId: this.tweet.id,
     };
     this.service.addBookmark(bookmark).subscribe((res) => {
-      
+      this.toastr.success('Bookmark Added')
     });
   }
 }

@@ -38,11 +38,10 @@ import { CardComponent } from './card/card.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      
-    }
-    ),
+      timeOut: 1000,
+    }),
   ],
   providers: [ToastrService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

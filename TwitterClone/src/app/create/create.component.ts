@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     }
 
     this.uploadForm = this.fb.group({
-      content: ['', [Validators.required, Validators.minLength(5)]],
+      content: ['', [Validators.required]],
       image: [''],
     });
   }
