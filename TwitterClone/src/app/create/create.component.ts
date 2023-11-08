@@ -87,7 +87,7 @@ export class CreateComponent implements OnInit {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
     this.user = jwtDecode(sessionStorage['user'])
     this.tweet.userId = this.user.id;
-    this.service.upload(this.tweet).subscribe((res)=>{
+    this.service.upload(this.tweet).subscribe(()=>{
       this.route.navigate(["home"]);
       this.toastr.success('uploaded');
     })

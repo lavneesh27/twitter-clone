@@ -16,6 +16,7 @@ export class CardComponent implements OnInit {
   user?: User;
   loginUser?: User;
   dataURL?: string;
+  imgSrc:string='';
   userURL?: string;
   like: boolean = false;
   @Output() likeEvent = new EventEmitter<string>();
@@ -54,11 +55,11 @@ export class CardComponent implements OnInit {
 
   plusLike(tweet: Tweet) {
     if (this.like) {
-      this.service.likeTweet(tweet.id, false).subscribe((res) => {
+      this.service.likeTweet(tweet.id, false).subscribe(() => {
         this.tweet.likes!++;
       });
     } else {
-      this.service.likeTweet(tweet.id, true).subscribe((res) => {
+      this.service.likeTweet(tweet.id, true).subscribe(() => {
         this.tweet.likes!--;
       });
     }
@@ -75,8 +76,14 @@ export class CardComponent implements OnInit {
       userId: this.loginUser!.id,
       tweetId: this.tweet.id,
     };
-    this.service.addBookmark(bookmark).subscribe((res) => {
+    this.service.addBookmark(bookmark).subscribe(() => {
       this.toastr.success('Bookmark Added')
     });
+  }
+
+  onClick(event:any){
+    var target = event.target || event.srcElement || event.currentTarget;
+    var srcAttr = target.attributes.src;
+    this.imgSrc = srcAttr.nodeValue;
   }
 }

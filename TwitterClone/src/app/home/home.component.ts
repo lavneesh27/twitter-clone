@@ -10,34 +10,38 @@ import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit{
-  tweets:Tweet[]=[];
+export class HomeComponent implements OnInit {
+  tweets: Tweet[] = [];
   imgUrl: any;
-  image: Uint8Array | null = null;
   dataURL: string = '';
+
   tweet: Tweet = {
     id: 0,
     content: '',
     likes: 0,
     userId: 0,
     createdAt: '',
-    image: []
+    image: [],
   };
   uploadForm!: FormGroup;
   user!: User;
-  constructor(private service:MainService, private router: Router,private fb: FormBuilder,private toastr: ToastrService) {
-  }
+  constructor(
+    private service: MainService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
-    if(!localStorage.getItem('user') && !sessionStorage.getItem('user')){
+    if (!localStorage.getItem('user') && !sessionStorage.getItem('user')) {
       this.router.navigate(['login']);
       return;
     }
-    this.service.loadTweets().subscribe((res:any)=>{
+    this.service.loadTweets().subscribe((res: any) => {
       this.tweets = res;
       this.tweets.reverse();
-    })
+    });
     this.uploadForm = this.fb.group({
       content: ['', [Validators.required]],
       image: [''],
@@ -54,22 +58,22 @@ export class HomeComponent implements OnInit{
       return;
     }
     const reader = new FileReader();
+    let image:Uint8Array | null;
     reader.onload = () => {
       const base64 = reader.result as string;
-      this.image = this.base64ToBytes(base64);
-      this.tweet.image = Array.from(this.image);
+      image = this.base64ToBytes(base64);
+      this.tweet.image = Array.from(image);
     };
     reader.readAsDataURL(file);
-    
+
     setTimeout(() => {
-      if (this.image) {
+      if (image) {
         const base64String = btoa(
-          String.fromCharCode.apply(null, Array.from(this.image))
+          String.fromCharCode.apply(null, Array.from(image))
         );
         this.dataURL = 'data:image/jpeg;base64,' + base64String;
       }
     }, 300);
-    
   }
   base64ToBytes(base64: string): Uint8Array {
     const byteCharacters = atob(base64.split(',')[1]);
@@ -82,13 +86,15 @@ export class HomeComponent implements OnInit{
 
   upload() {
     this.tweet.content = this.uploadForm.get('content')?.value.toString();
-    this.user = jwtDecode(sessionStorage['user'])
+    this.user = jwtDecode(sessionStorage['user']);
     this.tweet.userId = this.user.id;
-    this.service.upload(this.tweet).subscribe((res)=>{
+    this.service.upload(this.tweet).subscribe(() => {
       this.toastr.success('uploaded');
-      this.image=null;
-      this.dataURL='';
+      this.dataURL = '';
       this.ngOnInit();
-    })
+    });
+  }
+  clearImage() {
+    this.dataURL = '';
   }
 }

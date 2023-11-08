@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
         this.toastr.success('Login Successful!');
       },
-      (err) => {
+      () => {
         this.toastr.warning('Invalid Credentials');
       }
     );

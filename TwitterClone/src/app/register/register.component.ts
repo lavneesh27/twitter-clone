@@ -90,10 +90,10 @@ export class RegisterComponent implements OnInit {
       createdAt:'',
     };
 
-    this.service.registerUser(user).subscribe((res: any) => {
+    this.service.registerUser(user).subscribe(() => {
       this.toastr.success('Registration Successful!');
       this.route.navigate(["/home"]);
-    },(err)=>{
+    },()=>{
       this.toastr.warning('Registration Failed!');
     });
   }

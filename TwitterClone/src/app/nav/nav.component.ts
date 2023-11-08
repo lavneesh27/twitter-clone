@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from '../main.service';
-import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 
@@ -13,7 +12,7 @@ export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
 
-  constructor(private service: MainService, private router: Router) {}
+  constructor(private router: Router) {}
   ngOnInit(): void {
     const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
     if (userToken) {
@@ -25,12 +24,6 @@ export class NavComponent implements OnInit {
       const base64 = btoa(binary);
 
       this.imgUrl = 'data:image/jpeg;base64,' + base64;
-
-
-
-      setTimeout(() => {
-        console.log(this.user)
-      }, 1000);
     }
   }
   
