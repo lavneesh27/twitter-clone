@@ -19,11 +19,12 @@ export class ProfileComponent {
   constructor(private service: MainService, private _location: Location,private router:Router) {    
   }
   ngOnInit(): void {
-    this.user = localStorage.getItem('user')
-      ? jwtDecode(localStorage.getItem('user')!)
-      : jwtDecode(sessionStorage.getItem('user')!);
-    if (!this.user.id) {
+    const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
+    if (userToken) {
+      this.user = jwtDecode(userToken);
+    }else{
       this.router.navigate(['login']);
+      return;
     }
     this.service.loadTweets().subscribe((res:any)=>{
       this.tweets = res.filter((tweet:Tweet)=>{
