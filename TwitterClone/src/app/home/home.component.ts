@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   tweets: Tweet[] = [];
   imgUrl: any;
   dataURL: string = '';
-
+  isLoading:boolean=false;
   tweet: Tweet = {
     id: 0,
     content: '',
@@ -42,7 +42,9 @@ export class HomeComponent implements OnInit {
     if (userToken) {
       this.user = jwtDecode(userToken);
     }
+    this.isLoading=true;
     this.service.loadTweets().subscribe((res: any) => {
+      this.isLoading=false;
       this.tweets = res;
       this.tweets.reverse();
     });

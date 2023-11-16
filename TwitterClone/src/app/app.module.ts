@@ -28,7 +28,7 @@ import { CardComponent } from './card/card.component';
     CreateComponent,
     SidebarComponent,
     ProfileComponent,
-    BookmarkComponent,
+    BookmarkComponent
   ],
   imports: [
     BrowserModule,

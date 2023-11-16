@@ -77,7 +77,7 @@ export class CardComponent implements OnInit {
       tweetId: this.tweet.id,
     };
     this.service.addBookmark(bookmark).subscribe(() => {
-      this.toastr.success('Bookmark Added')
+      this.toastr.success('Bookmark Added');
     });
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../main.service';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,7 @@ export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastr:ToastrService) {}
   ngOnInit(): void {
     const userToken = localStorage.getItem('user') ?? sessionStorage.getItem('user');
     if (userToken) {
@@ -40,7 +41,10 @@ export class NavComponent implements OnInit {
     sessionStorage.clear();
     localStorage.clear();
     this.router.navigate(['/login']).then(() => {
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+      this.toastr.success('Logout Successful');
     });
   }
   login() {

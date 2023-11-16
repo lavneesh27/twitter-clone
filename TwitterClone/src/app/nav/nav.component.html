@@ -28,38 +28,49 @@
           <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Tweet</a>
         </li>
 
-        <li class="nav-item dropup" *ngIf="user?.id" style="width: 275px;">
-          <a class="nav-link  btn-profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li *ngIf="user?.id" class="nav-item dropup" style="width: 275px;">
+          <a class="nav-link btn-profile" role="button" aria-expanded="false">
             <div class="d-flex align-items-center">
-              <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px"><img [src]="'data:image/jpeg;base64,' + user.image" alt="" *ngIf="user.image"
-                  style="width:100%;height:100%"><span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">{{
-                    user?.firstName?.charAt(0) }}</span></div>
-              <div>
-                <h5 class="mb-0">{{user?.firstName}} {{user?.lastName}}</h5>
-                <h6 class="text-muted">&#64;{{user?.userName}}</h6>
+              <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px">
+                <img [src]="'data:image/jpeg;base64,' + user.image" *ngIf="user.image" alt="" style="width:100%;height:100%">
+                <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">
+                  {{ user?.firstName?.charAt(0) }}
+                </span>
               </div>
-              <div style="position: absolute;right: 20px;">&#8230;</div>
+              <div>
+                <h5 class="mb-0">{{ user?.firstName }} {{ user?.lastName }}</h5>
+                <h6 class="text-muted">&#64;{{ user?.userName }}</h6>
+              </div>
+              <div style="position: absolute; right: 20px;">&#8230;</div>
             </div>
           </a>
           
-            <ul class="dropdown-menu">
-              <li *ngIf="user?.id"><a class="dropdown-item nav-link  btn-profile" routerLink="/profile">
+          <ul class="dropdown-menu">
+            <li *ngIf="user?.id">
+              <a class="dropdown-item nav-link btn-profile" routerLink="/profile">
                 <div class="d-flex align-items-center">
-                  <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px"><img [src]="'data:image/jpeg;base64,' + user.image" *ngIf="user.image"
-                    alt="" style="width:100%;height:100%"><span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">{{
-                      user?.firstName?.charAt(0) }}</span></div>
-                  <div>
-                    <h5 class="mb-0">{{user.firstName}} {{user.lastName}}</h5>
-                    <h6 class="text-muted">&#64;{{user.userName}}</h6>
+                  <div class="rounded-circle me-3 overflow-hidden" style="width:40px;height:40px">
+                    <img [src]="'data:image/jpeg;base64,' + user.image" *ngIf="user.image" alt="" style="width:100%;height:100%">
+                    <span class="rounded-circle d-flex justify-content-center align-items-center bg-secondary text-light" style="width:40px;height:40px">
+                      {{ user?.firstName?.charAt(0) }}
+                    </span>
                   </div>
-                  
+                  <div>
+                    <h5 class="mb-0">{{ user.firstName }} {{ user.lastName }}</h5>
+                    <h6 class="text-muted">&#64;{{ user.userName }}</h6>
+                  </div>
                 </div>
-              </a></li>
-              <li (click)="this.user?logout():login()"><a class="dropdown-item text-center fw-bold text-muted">{{user?"Log out":"Login"}}
-                <h6 class="text-muted text-center"><i class='bx bx-exit fs-4'></i> &nbsp;&#64;{{user?.userName}}</h6></a>
-              </li>
-            </ul>
-          </li>
+              </a>
+            </li>
+            <li (click)="user ? logout() : login()">
+              <a class="dropdown-item text-center fw-bold text-muted">
+                {{ user ? "Log out" : "Login" }}
+                <h6 class="text-muted text-center"><i class='bx bx-exit fs-4'></i> &nbsp;&#64;{{ user?.userName }}</h6>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
 
       </ul>
     </div>

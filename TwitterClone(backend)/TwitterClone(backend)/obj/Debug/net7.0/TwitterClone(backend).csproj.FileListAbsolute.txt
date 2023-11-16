@@ -262,3 +262,4 @@ D:\TwitterClone\TwitterClone(backend)\TwitterClone(backend)\obj\Debug\net7.0\Twi
 D:\TwitterClone\TwitterClone(backend)\TwitterClone(backend)\obj\Debug\net7.0\TwitterClone(backend).genruntimeconfig.cache
 D:\TwitterClone\TwitterClone(backend)\TwitterClone(backend)\obj\Debug\net7.0\ref\TwitterClone(backend).dll
 D:\TwitterClone\TwitterClone(backend)\TwitterClone(backend)\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\TwitterClone\TwitterClone(backend)\TwitterClone(backend)\obj\Debug\net7.0\TwitterClone(backend).sourcelink.json
