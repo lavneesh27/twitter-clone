@@ -13,3 +13,12 @@ body {
 .toast-container .ngx-toastr {
   background-color:  #1D9BF0;
 }
+.btn{
+  transition: all 0.3s;
+  border-radius: 30px !important;
+}
+
+.btn-primary{
+  background-color: #1d9bf0 !important;
+  border: none;
+}

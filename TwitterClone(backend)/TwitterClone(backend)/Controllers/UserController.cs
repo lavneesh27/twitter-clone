@@ -71,10 +71,7 @@ namespace TwitterClone_backend_.Controllers
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _appDbContext.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            
             return user;
         }
 
@@ -98,9 +95,23 @@ namespace TwitterClone_backend_.Controllers
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("UpdateUser/{id}")]
+        public async Task<ActionResult<bool>> Put(int id, [FromBody] UserViewModel user)
         {
+            var originalUser = await _appDbContext.Users.FindAsync(id);
+            if (originalUser == null || user==null)
+            {
+                return NotFound();
+            }
+            originalUser.Email = user.Email;
+            originalUser.FirstName = user.FirstName;
+            originalUser.LastName = user.LastName;
+            originalUser.Dob = user.Dob;
+            originalUser.UserName = user.UserName;
+            //originalUser.Image = user.Image;
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
         }
 
         // DELETE api/<UserController>/5
