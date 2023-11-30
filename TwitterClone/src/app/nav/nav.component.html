@@ -10,7 +10,7 @@
           <a class="nav-link d-flex" aria-current="page" routerLink="/home" routerLinkActive="active"><i
               class='bx bxs-home fs-3'></i>&nbsp; Home</a>
         </li>
-        <li class="nav-item mb-3" >
+        <li class="nav-item mb-3" *ngIf="!user">
           <a class="nav-link d-flex" aria-current="page" routerLink="/login" routerLinkActive="active"><i
               class='bx bxs-key fs-3'></i>&nbsp; Login</a>
         </li>
@@ -24,8 +24,8 @@
           <a class="nav-link d-flex" aria-current="page" routerLink="/profile" routerLinkActive="active"><i
             class='bx bxs-user fs-3'></i>&nbsp; Profile</a>
         </li>
-        <li class="mb-3" *ngIf="user?.id">
-          <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Tweet</a>
+        <li class="mb-3 d-flex justify-content-center" *ngIf="user?.id">
+          <a class="btn btn-dark mb-3 float-end tweet" routerLink="/create">Post</a>
         </li>
 
         <li *ngIf="user?.id" class="nav-item dropup" style="width: 275px;">

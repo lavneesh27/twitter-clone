@@ -16,6 +16,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookmarkComponent } from './bookmark/bookmark.component';
 import { CardComponent } from './card/card.component';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StartComponent } from './start/start.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { CardComponent } from './card/card.component';
     CreateComponent,
     SidebarComponent,
     ProfileComponent,
-    BookmarkComponent
+    BookmarkComponent,
+    StartComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,8 @@ import { CardComponent } from './card/card.component';
     ToastrModule.forRoot({
       timeOut: 1000,
     }),
+    NgbModule,
+    NgbModalModule
   ],
   providers: [ToastrService],
   bootstrap: [AppComponent],

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { User } from './models/user.model';
 import { Tweet } from './models/tweet.model';
 import { Bookmark } from './models/bookmark.model';
+import { environment } from 'src/environments/environment.development';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,7 @@ export class MainService {
     // 'Content-Type': 'text/plain',
     Authorization: `Bearer ${this.userToken}`,
   });
+  gifs= new BehaviorSubject<any>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -76,11 +79,38 @@ export class MainService {
 
   getBookmarks(id: number) {
     let url = this.baseUrl + 'Bookmarks/GetBookmark/' + id;
-    return this.http.get(url, { headers: this.headers });
+    return this.http.get(url, { headers: this.headers })
   }
 
   updateUser(user: User, id: number) {
     let url = this.baseUrl + 'User/UpdateUser/' + id;
     return this.http.put(url, user, { responseType: 'text' });
+  }
+
+  getTrendingGifs() {
+    return this.http.get(
+      `https://api.giphy.com/v1/gifs/trending?api_key=${environment.gifApiKey}&limit=25&offset=0&rating=g&bundle=messaging_non_clips`
+    ).subscribe((res:any)=>{
+      this.gifs.next(res.data);
+    });
+  }
+
+  searchGifs(searchTerm: string) {
+    return this.http.get(
+      `https://api.giphy.com/v1/gifs/search?api_key=ARtK0z6wkEyhC5DExJuHQj6NHE70kDY8&q=${searchTerm}&limit=25&offset=0&rating=g&lang=en&bundle=messaging_non_clips`
+    ).subscribe((res:any)=>{
+      this.gifs.next(res.data);
+    });
+  }
+  getGifs(){
+    return this.gifs.asObservable();
+  }
+  getGifByteArray(gifUrl: string): Observable<Uint8Array> {
+    return this.http.get(gifUrl, { responseType: 'arraybuffer' })
+      .pipe(
+        map((gifData: ArrayBuffer) => {
+          return new Uint8Array(gifData);
+        })
+      );
   }
 }
