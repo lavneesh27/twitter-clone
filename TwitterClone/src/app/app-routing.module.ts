@@ -8,17 +8,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { BookmarkComponent } from './bookmark/bookmark.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'/home', pathMatch:'full'},
-  {path:'home', component:HomeComponent},
-  {path:'login', component:LoginComponent},
-  {path:'register', component:RegisterComponent},
-  {path:'create', component:CreateComponent},
-  {path:'profile', component:ProfileComponent},
-  {path:'bookmark', component:BookmarkComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent,title: 'Home / Twitter'},
+  { path: 'login', component: LoginComponent, title: 'Login / Twitter' },
+  { path: 'register', component: RegisterComponent, title: 'Register / Twitter'},
+  { path: 'create', component: CreateComponent, title: 'Create / Twitter' },
+  { path: 'profile', component: ProfileComponent, title: 'Profile / Twitter' },
+  { path: 'bookmark', component: BookmarkComponent, title: 'Bookmark / Twitter' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
