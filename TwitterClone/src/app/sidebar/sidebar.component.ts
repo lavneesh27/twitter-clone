@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainService } from '../main.service';
 import { User } from '../models/user.model';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,7 @@ import { jwtDecode } from 'jwt-decode';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor(private service: MainService) {}
+  constructor(private service: MainService,private router:Router) {}
   peoples: User[] = [];
   inputUser: string = '';
   user: any;
@@ -26,6 +27,7 @@ export class SidebarComponent implements OnInit {
             (people: any) => people.userName !== this.user.userName
           );
         });
+        
       }
     }
   }
@@ -37,4 +39,8 @@ export class SidebarComponent implements OnInit {
       });
     });
   }
+  NavigateToProfile(data:any){
+    this.router.navigateByUrl('/profile', {state:{'people':data}});
+  }
 }
+  

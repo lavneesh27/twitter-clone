@@ -107,6 +107,8 @@ export class HomeComponent implements OnInit,OnDestroy {
     this.service.upload(this.tweet).subscribe(() => {
       this.toastr.success('uploaded');
       this.dataURL = '';
+      this.imgUrl=''
+      this.tweet.image=[];
       this.ngOnInit();
     });
   }

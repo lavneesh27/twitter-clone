@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .header {
   width: 628px;
   height: 50px;
@@ -49,7 +53,7 @@
 .banner {
   width: 100%;
   overflow: hidden;
-  height: 200px;
+  height: 220px;
   padding: 0;
   margin: 0;
 }
@@ -74,7 +78,7 @@
   height: 700px;
 }
 .modal {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s  ;
 }
 .edit-pic {
   cursor: pointer;
@@ -83,7 +87,11 @@
 .edit-pic:hover {
   filter: brightness(70%);
 }
-/* .modal-header {
-  background-color: rgba(255, 255, 255, 0.6)  !important;
-  backdrop-filter: blur(12px) !important;
-} */
+
+.edit-btn {
+  position: absolute;
+  right: 10px;
+  top: 230px;
+  font-weight: bold;
+  border: 1px solid rgba(145, 145, 145, 0.5);
+}

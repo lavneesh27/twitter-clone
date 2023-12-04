@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from '../models/user.model';
 import { MainService } from '../main.service';
 import { jwtDecode } from 'jwt-decode';
 import { Tweet } from '../models/tweet.model';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,15 +15,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileComponent {
   user!: User;
-  tweets!: Tweet[];
+  tweets: Tweet[] = [];
   updateForm!: FormGroup;
+  @Input() userNav: any;
 
   constructor(
     private service: MainService,
     private _location: Location,
     private router: Router,
     private fb: FormBuilder,
-    private toast:ToastrService
+    private toast: ToastrService,
+    private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
     const userToken =
@@ -33,6 +35,9 @@ export class ProfileComponent {
     } else {
       this.router.navigate(['login']);
       return;
+    }
+    if (history?.state?.people) {
+      this.user = history?.state?.people;
     }
 
     this.updateForm = this.fb.group({
@@ -54,7 +59,10 @@ export class ProfileComponent {
       ],
       email: [this.user.email, [Validators.required, Validators.email]],
       dob: [this.user.dob],
-      userName: [this.user.userName, [Validators.required, Validators.minLength(2)]],
+      userName: [
+        this.user.userName,
+        [Validators.required, Validators.minLength(2)],
+      ],
       // image: [this.user.image],
     });
 
@@ -67,18 +75,21 @@ export class ProfileComponent {
   goBack() {
     this._location.back();
   }
-  update(){
-    console.log("clicked")
+  update() {
+    console.log('clicked');
 
-    this.user.firstName=this.updateForm.get('firstName')?.value; 
-    this.user.lastName=this.updateForm.get('lastName')?.value; 
-    this.user.dob=this.updateForm.get('dob')?.value; 
-    this.user.userName=this.updateForm.get('userName')?.value; 
-    this.user.email=this.updateForm.get('email')?.value; 
-    this.service.updateUser(this.user, this.user.id).subscribe((res)=>{
-      this.toast.success("Profile Updated");
-    },(err)=>{
-      this.toast.error("Some error occured");
-    })
+    this.user.firstName = this.updateForm.get('firstName')?.value;
+    this.user.lastName = this.updateForm.get('lastName')?.value;
+    this.user.dob = this.updateForm.get('dob')?.value;
+    this.user.userName = this.updateForm.get('userName')?.value;
+    this.user.email = this.updateForm.get('email')?.value;
+    this.service.updateUser(this.user, this.user.id).subscribe(
+      (res) => {
+        this.toast.success('Profile Updated');
+      },
+      (err) => {
+        this.toast.error('Some error occured');
+      }
+    );
   }
 }

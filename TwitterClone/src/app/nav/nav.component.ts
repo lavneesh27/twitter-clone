@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { MainService } from '../main.service';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-nav',
@@ -12,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class NavComponent implements OnInit {
   user?: any;
   imgUrl: any;
+  private modalService = inject(NgbModal);
+
 
   constructor(private router: Router, private toastr:ToastrService) {}
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class NavComponent implements OnInit {
   logout() {
     sessionStorage.clear();
     localStorage.clear();
+    this.modalService.dismissAll();
     this.router.navigate(['/login']).then(() => {
       setTimeout(() => {
         window.location.reload();
@@ -50,4 +54,8 @@ export class NavComponent implements OnInit {
   login() {
     this.router.navigate(['/login']);
   }
+  open(content: TemplateRef<any>) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',centered: true, size:'sm',windowClass: 'dark-modal'})
+	}
+  
 }

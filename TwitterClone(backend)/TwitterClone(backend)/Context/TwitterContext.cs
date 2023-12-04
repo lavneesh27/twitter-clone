@@ -27,11 +27,13 @@ public partial class TwitterContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //modelBuilder.Entity<User>().ToTable(tb => tb.HasTrigger("TriggerName"));
         modelBuilder.Entity<Bookmark>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Bookmark__3214EC073E0EF102");
+            
 
-            entity.ToTable("Bookmark");
+            entity.ToTable("Bookmark",(tb => tb.HasTrigger("TriggerName")));
         });
 
         modelBuilder.Entity<Tweet>(entity =>
@@ -54,8 +56,8 @@ public partial class TwitterContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__User__3214EC07F451E864");
-
-            entity.ToTable("User");
+            //entity.HasTrigger("TriggerName");
+            entity.ToTable("User", (tb => tb.HasTrigger("TriggerName")));
 
             entity.Property(e => e.CreatedAt)
                 .HasMaxLength(50)

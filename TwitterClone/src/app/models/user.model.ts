@@ -1,4 +1,3 @@
-import { Tweet } from './tweet.model';
 
 export interface User {
   id: number;

@@ -49,7 +49,7 @@ nav .nav-brand i {
   background-color: white;
   color: black;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   display: flex;
   border: none;
 }
@@ -79,4 +79,18 @@ nav .nav-brand i {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+.dark-modal .modal-content {
+  background-color: #292b2c !important;
+  color: white;
+} 
+
+.logo{
+    border-radius: 50%;
+    padding: 10px;
+  transition: 0.3s;
+}
+
+.logo:hover{
+  background-color: rgb(230, 230, 230);
 }
